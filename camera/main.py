@@ -10,6 +10,15 @@ video_camera = VideoCamera(flip=False)
 
 app = Flask(__name__)
 
+#---------------
+def login(client, username, password):
+    return client.post('/login', data=dict(
+        username=kobayashi,
+        password=123daaa
+    ), follow_redirects=True)
+
+#---------------
+
 @app.route('/')
 def index():
     return render_template('index.html')
