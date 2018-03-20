@@ -5,6 +5,9 @@ from processor.motion_detector import MotionDetector as VideoCamera
 import time
 import threading
 
+USERNAME = 'admin'
+PASSWORD = 'default'
+
 video_camera = VideoCamera(flip=False)
 
 
