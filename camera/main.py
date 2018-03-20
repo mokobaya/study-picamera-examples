@@ -11,11 +11,19 @@ video_camera = VideoCamera(flip=False)
 app = Flask(__name__)
 
 #---------------
-def login(client, username, password):
-    return client.post('/login', data=dict(
-        username=kobayashi,
-        password=123daaa
-    ), follow_redirects=True)
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != current_app.config['USERNAME']:
+            error = 'Invalid username'
+        elif request.form['password'] != current_app.config['PASSWORD']:
+            error = 'Invalid password'
+        else:
+            session['logged_in'] = True
+            flash('You were logged in')
+            return redirect(url_for('flaskr.show_entries'))
+    return render_template('login.html', error=error)
 
 #---------------
 
